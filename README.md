@@ -36,6 +36,8 @@ controller automation via the REST API.
 ## Quick start
 
 ```bash
+swamp extension pull @calcuttin/cml
+
 swamp vault create local_encryption cml
 swamp vault put cml USERNAME 'admin'
 swamp vault put cml PASSWORD 'your-password'
@@ -53,23 +55,15 @@ swamp data query cml-controller 'attributes.label == "R1"'
 
 ## Cisco DevNet topology catalog
 
-Topologies are **not stored in git** (see repo `topologies/README.md`). Download them on demand:
+Topologies are **not bundled** in the extension. Download them into your Swamp repo on demand:
 
 ```bash
-# Download compatible DevNet labs (~60) filtered to your CML node types
 swamp workflow run @calcuttin/download-devnet-topologies
-# Or directly:
-swamp model @calcuttin/cml/lab method run downloadTopologies cml-controller
 
-# Browse catalog (after download)
 swamp model @calcuttin/cml/lab method run listTopologies cml-controller
 swamp model @calcuttin/cml/lab method run listTopologies cml-controller --input tag=ccnp-relevant
 
-# Import any catalog lab by ID
 swamp workflow run @calcuttin/import-topology --input topologyId=basic-forwarding-behavior
-swamp workflow run @calcuttin/import-topology-and-sync --input topologyId=basic-forwarding-behavior
-
-# CCNP preset (basic-forwarding-behavior + start)
 swamp workflow run @calcuttin/import-ccnp-topology
 ```
 
@@ -77,11 +71,11 @@ Source: [CiscoDevNet/cml-community](https://github.com/CiscoDevNet/cml-community
 
 ## Import a custom topology
 
-Place a CML 2.x YAML file in your repo (e.g. `topologies/ccnp.yaml`), then:
+Place a CML 2.x YAML file in your repo (e.g. `topologies/my-lab.yaml`), then:
 
 ```bash
 swamp model @calcuttin/cml/lab method run importLab cml-controller \
-  --input topologyPath=topologies/ccnp.yaml \
+  --input topologyPath=topologies/my-lab.yaml \
   --input title='My Lab'
 ```
 
@@ -95,3 +89,9 @@ building.
 
 - CML 2.9+ (tested on 2.10)
 - `curl` on the Swamp runner (for TLS skip on self-signed lab certs)
+
+## Install
+
+```bash
+swamp extension pull @calcuttin/cml
+```
