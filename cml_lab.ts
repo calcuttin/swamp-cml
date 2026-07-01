@@ -407,7 +407,7 @@ async function importYamlContent(
 /** Swamp model definition for `@calcuttin/cml/lab`. */
 export const model = {
   type: "@calcuttin/cml/lab",
-  version: "2026.07.01.5",
+  version: "2026.07.01.6",
   resources: {
     "lab": {
       description: "CML lab summary with embedded node/link inventory",

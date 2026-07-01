@@ -1,6 +1,6 @@
 manifestVersion: 1
 name: '@calcuttin/cml'
-version: 2026.07.01.5
+version: 2026.07.01.6
 description: >-
   Cisco Modeling Labs (CML) controller automation — sync lab/node/link
   inventory, import topologies, and manage lab lifecycle via the CML REST API.
