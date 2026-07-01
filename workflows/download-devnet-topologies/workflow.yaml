@@ -1,0 +1,21 @@
+id: a1b2c3d4-1111-4000-8000-000000000002
+name: '@calcuttin/download-devnet-topologies'
+description: >-
+  Download compatible Cisco DevNet cml-community topologies into
+  topologies/cisco-devnet/ and rebuild topologies/catalog.json
+version: 1
+jobs:
+  - name: download
+    description: Fetch DevNet YAML labs filtered to node types on your CML controller
+    steps:
+      - name: download-catalog
+        description: Download topologies from GitHub and write catalog.json
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: downloadTopologies
+        dependsOn: []
+        weight: 0
+        allowFailure: false
+    dependsOn: []
+    weight: 0

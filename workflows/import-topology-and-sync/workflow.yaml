@@ -1,0 +1,43 @@
+id: a1b2c3d4-1111-4000-8000-000000000004
+name: '@calcuttin/import-topology-and-sync'
+description: Import a DevNet topology by catalog ID, start it, and sync inventory
+version: 1
+inputs:
+  topologyId:
+    type: string
+    required: true
+    description: Catalog ID from topologies/catalog.json
+  startAfterImport:
+    type: boolean
+    required: false
+    description: Start all nodes after import (default true)
+jobs:
+  - name: import-and-sync
+    description: Import topology then refresh lab/node/link resources
+    steps:
+      - name: import-lab
+        description: Import by catalog ID
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: importTopology
+          inputs:
+            topologyId: '${{ inputs.topologyId }}'
+            startAfterImport: '${{ inputs.startAfterImport }}'
+        dependsOn: []
+        weight: 0
+        allowFailure: false
+      - name: sync-inventory
+        description: Sync all labs with node and link resources
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: sync
+        dependsOn:
+          - step: import-lab
+            condition:
+              type: succeeded
+        weight: 0
+        allowFailure: false
+    dependsOn: []
+    weight: 0

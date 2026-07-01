@@ -1,0 +1,31 @@
+id: a1b2c3d4-1111-4000-8000-000000000003
+name: '@calcuttin/import-topology'
+description: Import a DevNet topology by catalog ID and start it
+version: 1
+inputs:
+  topologyId:
+    type: string
+    required: true
+    description: Catalog ID from topologies/catalog.json (run listTopologies first)
+  startAfterImport:
+    type: boolean
+    required: false
+    description: Start all nodes after import (default true)
+jobs:
+  - name: import
+    description: Import topology YAML from local catalog into CML
+    steps:
+      - name: import-lab
+        description: Import by catalog ID
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: importTopology
+          inputs:
+            topologyId: '${{ inputs.topologyId }}'
+            startAfterImport: '${{ inputs.startAfterImport }}'
+        dependsOn: []
+        weight: 0
+        allowFailure: false
+    dependsOn: []
+    weight: 0

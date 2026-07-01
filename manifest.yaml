@@ -1,0 +1,32 @@
+manifestVersion: 1
+name: '@calcuttin/cml'
+version: 2026.07.01.5
+description: >-
+  Cisco Modeling Labs (CML) controller automation — sync lab/node/link
+  inventory, import topologies, and manage lab lifecycle via the CML REST API.
+repository: https://github.com/calcuttin/swamp-cml
+paths:
+  base: manifest
+models:
+  - cml_lab.ts
+workflows:
+  - workflows/sync-cml-labs/workflow.yaml
+  - workflows/download-devnet-topologies/workflow.yaml
+  - workflows/import-topology/workflow.yaml
+  - workflows/import-topology-and-sync/workflow.yaml
+  - workflows/import-ccnp-topology/workflow.yaml
+vaults: []
+drivers: []
+datastores: []
+reports: []
+skills:
+  - cml
+additionalFiles:
+  - README.md
+  - LICENSE.txt
+labels:
+  - cisco
+  - cml
+  - networking
+  - lab
+  - infrastructure

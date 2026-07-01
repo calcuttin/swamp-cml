@@ -1,0 +1,31 @@
+id: a1b2c3d4-1111-4000-8000-000000000001
+name: '@calcuttin/sync-cml-labs'
+description: Sync all CML labs, nodes, and links into cml-controller
+version: 1
+jobs:
+  - name: sync
+    description: Authenticate with CML and fan-out lab inventory
+    steps:
+      - name: system-info
+        description: Record CML controller version and readiness
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: getSystemInfo
+        dependsOn: []
+        weight: 0
+        allowFailure: false
+      - name: sync-inventory
+        description: Sync all labs with node and link resources
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: sync
+        dependsOn:
+          - step: system-info
+            condition:
+              type: succeeded
+        weight: 0
+        allowFailure: false
+    dependsOn: []
+    weight: 0

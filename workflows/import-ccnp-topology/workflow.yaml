@@ -1,0 +1,22 @@
+id: a1b2c3d4-1111-4000-8000-000000000005
+name: '@calcuttin/import-ccnp-topology'
+description: Import the CCNP basic-forwarding-behavior DevNet lab and start it
+version: 1
+jobs:
+  - name: import
+    description: Import CCNP-relevant OSPF + switching topology from catalog
+    steps:
+      - name: import-lab
+        description: Import basic-forwarding-behavior from DevNet catalog
+        task:
+          type: model_method
+          modelIdOrName: cml-controller
+          methodName: importTopology
+          inputs:
+            topologyId: basic-forwarding-behavior
+            startAfterImport: true
+        dependsOn: []
+        weight: 0
+        allowFailure: false
+    dependsOn: []
+    weight: 0
